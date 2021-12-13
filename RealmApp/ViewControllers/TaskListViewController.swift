@@ -61,10 +61,11 @@ class TaskListViewController: UITableViewController {
         
         let editAction = UIContextualAction(style: .normal, title: "Edit") { _, _, isDone in
             self.showAlert(with: taskList) {
-                if self.taskLists.index(of: taskList) == indexPath.row {
+                let newIndexRow = self.taskLists.index(of: taskList)
+                if newIndexRow == indexPath.row {
                     tableView.reloadRows(at: [indexPath], with: .automatic)
                 } else {
-                    tableView.reloadData()
+                    tableView.moveRow(at: indexPath, to: IndexPath(row: newIndexRow ?? 0, section: 0))
                 }
             }
             isDone(true)
